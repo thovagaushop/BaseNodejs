@@ -1,11 +1,13 @@
 import passport from "passport";
-import { Strategy } from "passport-local";
+import { Strategy as LocalStrategy } from "passport-local";
+import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
 import * as userService from "../services/user.service.js";
 import * as bcrypt from "bcrypt";
 import MessageConstant from "../common/constant/message.constant.js";
+import EnvConstant from "../common/constant/env.constant.js";
 
 passport.use(
-  new Strategy(
+  new LocalStrategy(
     {
       usernameField: "email",
       passwordField: "password",
@@ -22,6 +24,27 @@ passport.use(
         }
       } catch (error) {
         return done(error, false);
+      }
+    }
+  )
+);
+
+passport.use(
+  new JwtStrategy(
+    {
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: EnvConstant.JWT_SECRET,
+    },
+    async function (payload, done) {
+      try {
+        console.log("Payload : ", payload);
+        const user = await userService.findOne({ id: payload.sub });
+        console.log("Vao day");
+        if (!user)
+          return done(null, false, { message: MessageConstant.USER_NOT_FOUND });
+        else return done(null, user);
+      } catch (error) {
+        return done(err, false);
       }
     }
   )

@@ -3,11 +3,16 @@ import MessageConstant from "../common/constant/message.constant.js";
 import StatusResponseConstant from "../common/constant/statusResponse.constant.js";
 import { ConfligError } from "../common/exeptions/custom.exeption.js";
 import * as authService from "../services/auth.service.js";
+import { generateToken } from "../services/jwt.service.js";
 export const login = async (req, res) => {
   try {
+    const token = generateToken({
+      sub: req.user.id,
+      username: req.user.username,
+    });
     return res.status(HttpStatusConstant.SUCCESS).json({
       status: StatusResponseConstant.SUCCESS,
-      data: req.user,
+      accessToken: token,
     });
   } catch (error) {
     return res.status(error.statusCode()).json({

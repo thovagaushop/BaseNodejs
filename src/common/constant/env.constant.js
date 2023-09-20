@@ -6,6 +6,7 @@ const EnvConstant = {
   SESSION_SECRET: process.env.SESSION_SECRET,
   DB_URI: process.env.DB_URI,
   SALT_ROUND: parseInt(process.env.SALT_ROUND, 10),
+  JWT_SECRET: process.env.JWT_SECRET,
 };
 
 export default EnvConstant;
