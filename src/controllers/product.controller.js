@@ -4,6 +4,7 @@ import MessageConstant from "../common/constant/message.constant.js";
 import * as productService from "../services/product.service.js";
 export const find = async (req, res) => {
   try {
+    console.log(req.user);
     const products = await productService.find();
     return res.status(HttpStatusConstant.SUCCESS).json({
       status: StatusResponseConstant.SUCCESS,

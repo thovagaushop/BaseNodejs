@@ -42,3 +42,10 @@ export const register = async (req, res) => {
     });
   }
 };
+
+export const nonAuthenticated = (req, res) => {
+  return res.status(HttpStatusConstant.UNAUTHORIZE).json({
+    status: StatusResponseConstant.ERROR,
+    message: MessageConstant.UNAUTHORIZE,
+  });
+};

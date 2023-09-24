@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { ExtractJwt, Strategy as JwtStrategy } from "passport-jwt";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import * as userService from "../services/user.service.js";
 import * as bcrypt from "bcrypt";
 import MessageConstant from "../common/constant/message.constant.js";
@@ -46,6 +47,21 @@ passport.use(
       } catch (error) {
         return done(err, false);
       }
+    }
+  )
+);
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: EnvConstant.GOOGLE_CLIENT_ID,
+      clientSecret: EnvConstant.GOOGLE_CLIENT_SECRET_KEY,
+      callbackURL: `${EnvConstant.SERVER_URL}/api/auth/google/callback`,
+    },
+    (accessToken, refreshToken, profile, done) => {
+      console.log(accessToken);
+      console.log("Profile: ", profile);
+      done(null, profile);
     }
   )
 );
