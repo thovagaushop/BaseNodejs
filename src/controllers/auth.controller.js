@@ -49,3 +49,18 @@ export const nonAuthenticated = (req, res) => {
     message: MessageConstant.UNAUTHORIZE,
   });
 };
+
+export const logout = async (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      res.status(HttpStatusConstant.BAD_REQUEST).json({
+        status: StatusResponseConstant.ERROR,
+        message: MessageConstant.BAD_REQUEST,
+      });
+    }
+    res.status(HttpStatusConstant.SUCCESS).json({
+      status: StatusResponseConstant.SUCCESS,
+      message: MessageConstant.LOGOUT_SUCCESS,
+    });
+  });
+};

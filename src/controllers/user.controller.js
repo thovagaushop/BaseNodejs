@@ -17,3 +17,18 @@ export const create = async (req, res) => {
     });
   }
 };
+
+export const findById = async (req, res) => {
+  try {
+    const user = await userService.findById(req.params.id);
+    return res.status(HttpStatusConstant.SUCCESS).json({
+      status: StatusResponseConstant.SUCCESS,
+      data: user,
+    });
+  } catch (error) {
+    return res.status(error.statusCode()).json({
+      status: StatusResponseConstant.ERROR,
+      message: MessageConstant.BAD_REQUEST,
+    });
+  }
+}

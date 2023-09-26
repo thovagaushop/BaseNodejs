@@ -1,12 +1,10 @@
 import express from "express";
 import session from "express-session";
-import { config } from "dotenv";
+import cors from "cors";
 import connection from "./config/database.config.js";
 import routes from "./routes/index.js";
 import EnvConstant from "./common/constant/env.constant.js";
 import passport from "./config/passport.config.js";
-// Config to read env file
-config();
 // Port
 const PORT = EnvConstant.PORT || 3000;
 
@@ -16,6 +14,8 @@ const app = express();
 connection();
 // Body parser
 app.use(express.json());
+// Cors
+app.use(cors({ origin: EnvConstant.CLIENT_URL, credentials: true }));
 // Session
 app.use(
   session({
@@ -27,6 +27,7 @@ app.use(
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
 // Router
 app.use("/api", routes);
 

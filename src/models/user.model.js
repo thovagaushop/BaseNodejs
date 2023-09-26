@@ -8,16 +8,27 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true,
   },
   password: {
     type: String,
-    required: true,
   },
   role: {
     type: String,
     enum: ["admin", "member"],
     default: "member",
+  },
+  authProvider: {
+    type: String,
+    default: "local",
+  },
+  providerId: {
+    type: String,
+  },
+  avatar: {
+    type: String,
+    required: true,
+    default:
+      "https://png.pngtree.com/element_our/20200610/ourmid/pngtree-character-default-avatar-image_2237203.jpg",
   },
 });
 

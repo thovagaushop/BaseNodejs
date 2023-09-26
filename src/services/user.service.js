@@ -20,3 +20,13 @@ export const findOne = async (data) => {
     throw new BadRequestError(error.message);
   }
 };
+
+export const findById = async (id) => {
+  try {
+    const result = await User.findById(id);
+    return result;
+  } catch (error) {
+    console.log("Error when find user by id : ", error.message);
+    throw new BadRequestError(error.message);
+  }
+}

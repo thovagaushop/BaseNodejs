@@ -8,6 +8,7 @@ const MessageConstant = {
   LOGIN_FAILED: "Login failed",
   USER_NOT_FOUND: "User not found",
   TOKEN_EXPIRED: "Token expired",
+  LOGOUT_SUCCESS: "Logout success",
 };
 
 export default MessageConstant;

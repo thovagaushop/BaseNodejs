@@ -1,9 +1,9 @@
 import { Router } from "express";
 import * as productController from "../controllers/product.controller.js";
-import jwtauthenticateMiddleware from "../middlewares/jwtauthenticate.middleware.js";
+import isAuthenticateMiddleware from "../middlewares/isAuthenticate.middleware.js";
 
 const router = Router();
 
-router.get("/", jwtauthenticateMiddleware, productController.find);
+router.get("/", isAuthenticateMiddleware, productController.find);
 
 export default router;
